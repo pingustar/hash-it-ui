@@ -63,6 +63,13 @@
             {{ hash.created_at }}
           </td>
         </tr>
+        <tr v-if="search && !searchResults.length">
+          <td colspan="5">
+            <h5 class="text-center p-0 my-3">
+              Nothing found for: {{ search }}
+            </h5>
+          </td>
+        </tr>
       </tbody>
     </table>
     <div v-else class="d-flex justify-content-center align-items-center p-5">
@@ -96,7 +103,7 @@ export default class Messages extends Vue {
   searchResults: any = []
 
   get results() {
-    if (this.searchResults.length) return this.searchResults
+    if (this.search) return this.searchResults
     else return this.hashes
   }
 
