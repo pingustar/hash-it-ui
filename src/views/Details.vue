@@ -2,7 +2,7 @@
   <div>
     <h3 class="text-center text-muted text-uppercase mb-2">Hash #</h3>
     <h5 class="text-center pb-3">{{ hash }}</h5>
-    <table class="table table-striped table-hover table-vcenter">
+    <table v-if="!loading" class="table table-striped table-hover table-vcenter">
       <thead>
         <tr>
           <th colspan="2">Hash # Item</th>
@@ -29,6 +29,11 @@
         </tr>
       </tbody>
     </table>
+    <div v-else class="d-flex justify-content-center align-items-center p-5">
+      <div class="text-center">
+        <font-awesome-icon icon="spinner" spin size="2x" class="mb-3"/>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -41,6 +46,7 @@ export default class Details extends Vue {
   @Prop() hash!: string
 
   items: any[] = []
+  loading = false
 
   async getHashes() {
     const hash = await scatter.rpc.get_table_rows({
@@ -64,9 +70,11 @@ export default class Details extends Vue {
   }
 
   async created() {
-    this.getHashes()
+    this.loading = true
+    await this.getHashes()
     // @ts-ignore
     this.$options.interval = setInterval(await this.getHashes(), 1000)
+    this.loading = false
   }
 
   beforeDestroy() {

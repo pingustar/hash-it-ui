@@ -26,7 +26,7 @@
         </div>
       </form>
     </div>
-    <table class="table table-striped table-hover table-vcenter">
+    <table v-if="!loading" class="table table-striped table-hover table-vcenter">
       <thead>
         <tr>
           <th colspan="2">Hash #</th>
@@ -65,6 +65,11 @@
         </tr>
       </tbody>
     </table>
+    <div v-else class="d-flex justify-content-center align-items-center p-5">
+      <div class="text-center">
+        <font-awesome-icon icon="spinner" spin size="2x" class="mb-3"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -77,6 +82,8 @@ import * as scatter from '@/api/scatter'
 export default class Messages extends Vue {
   hashes: any[] = []
   search = ''
+  loading = false
+
   private searchOptions = {
     shouldSort: true,
     threshold: 0.3,
@@ -114,9 +121,11 @@ export default class Messages extends Vue {
   }
 
   async created() {
-    this.getHashes()
+    this.loading = true
+    await this.getHashes()
     // @ts-ignore
     this.$options.interval = setInterval(await this.getHashes(), 1000)
+    this.loading = false
   }
 
   @Watch('search')
