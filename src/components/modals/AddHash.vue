@@ -21,6 +21,11 @@
             placeholder="required"
           />
         </div>
+        <div class="text-right">
+          <b-btn @click="a(hash)" variant="success" size="sm" :disabled="!hash">
+            Generate SHA256 Hash
+          </b-btn>
+        </div>
         <div class="form-group">
           <label for="create-option-2">Hash Content</label>
           <textarea
@@ -31,11 +36,6 @@
             rows="2"
             placeholder="required, max 300 characters"
           ></textarea>
-        </div>
-        <div class="text-right">
-          <b-btn @click="a(content)" variant="success" size="sm" :disabled="!content">
-            Generate SHA256 Hash
-          </b-btn>
         </div>
       </div>
     </div>
