@@ -46,7 +46,7 @@
     "babel-plugin-transform-decorators": "^6.24.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.2.3",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "sass-loader": "^7.3.1",
     "tslib": "^1.10.0",
     "typescript": "^3.7.2",
